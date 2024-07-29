@@ -1,17 +1,33 @@
 class Solution {
-    public int numTeams(int[] rating) {
-    int r = 0 ;
-       for(int i = 0 ;i < rating.length ;i++){
-          for(int j=0; j < i ; j++){
-            for(int k =0 ;k<j ;k++){
-                if((rating[i] < rating[j] && rating[j] < rating[k]) ||(rating[i]> rating[j] && rating[j]>rating[k]))
-                  r++;
-                    
+    public int numTeams(int[] A) {
+
+        int r = 0;
+        int n = A.length;
+        for (int i = 0; i < n; i++) {
+            int leftSmaller = 0;
+            int rightGreater = 0;
+            int leftGreater = 0;
+            int rightSmaller = 0;
+
+            for (int j = 0; j < n; j++) {
+
+                if (A[j] < A[i]) {
+                    if (j < i)
+                        leftSmaller++;
+                    else
+                        rightSmaller++;
+                }
+
+                if (A[j] > A[i]) {
+                    if (j < i)
+                        leftGreater++;
+                    else
+                        rightGreater++;
+                }
 
             }
-          }
-
-       }
-       return r; 
+            r += leftSmaller * rightGreater + leftGreater * rightSmaller;
+        }
+        return r;
     }
 }
