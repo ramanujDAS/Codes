@@ -6,17 +6,13 @@ class MyStack {
     }
     
     public void push(int x) {
-      while(queue1.size() > 0)
-      {
-        queue2.add(queue1.peek());   // just for reverse
-        queue1.poll();
-      }  
-      queue1.add(x);
-      while(queue2.size()>0){
-        queue1.add(queue2.peek());
-        queue2.poll();
-      }
-
+     
+       int n = queue1.size();
+         queue1.add(x);
+        for(int i=0 ;i<n ;i++){
+          queue1.add(queue1.poll());  
+        } 
+    
     }
     
     public int pop() {
