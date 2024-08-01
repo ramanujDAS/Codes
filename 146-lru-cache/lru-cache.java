@@ -1,42 +1,67 @@
 class LRUCache {
     private static int capacity;
-    private static Queue<Integer> q;
-    private static HashMap<Integer, Integer> map;
+    private Node head = new Node(0, 0);
+    private Node last = new Node(-1, -1);
+
+    private static HashMap<Integer, Node> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        q = new LinkedList<>();
         map = new HashMap<>();
+        head.next = last;
+        last.prev = head;
     }
 
     public int get(int key) {
         if (map.containsKey(key)) {
-            int value = map.get(key);
-            q.remove(key);
-            q.add(key);
-            return value;
-        } else
-            return -1;
+            Node node = map.get(key);
+            remove(node);
+            insert(node);
+            return node.val;
+        }
+        return -1;
     }
 
     public void put(int key, int value) {
         if (map.containsKey(key)) {
-            map.put(key, value);
-            q.remove(key);
-            q.add(key);
-        } else {
-            if (map.size() == capacity) {
-                map.remove(q.poll());
-                q.add(key);
-                map.put(key, value);
-            } else {
-                q.add(key);
-                map.put(key, value);
-            }
+            remove(map.get(key));
+            
+        }
+        if (map.size() == capacity) {
+            remove(last.prev);
+        }
+       insert(new Node(key, value));
+    }
+
+    class Node {
+        int val;
+        Node next;
+        Node prev;
+        int key;
+
+        public Node(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+
+        void insert(Node node) {
+            node.next = head.next;
+            head.next.prev = node;
+            head.next = node;
+            node.prev = head;
+            map.put(node.key, node);
+        }
+
+        void remove(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            map.remove(node.key);
+
         }
 
     }
-}
+
 
 /**
  * Your LRUCache object will be instantiated and called as such:
