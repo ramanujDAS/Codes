@@ -15,7 +15,7 @@ class Solution {
     }
 
     void fun(int[][] graph , int i, int j , int [] visited){
-    // if(visited[i]==1) return;
+     if(visited[i]==1) return;
          visited[i]=1;
         for(int k =0 ;k< graph.length ; k++){
                  if(graph[i][k] == 1 && visited[k] == 0)
