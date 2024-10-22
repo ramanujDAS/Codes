@@ -11,9 +11,21 @@ class Solution {
             }
           list.add(l);
         }
-        
 
-        return getTotal(triangle,0,0,list);
+       
+       for(int i = triangle.size() -2 ; i>=0 ;i--){
+        for(int j = 0 ;j <triangle.get(i).size() ;j++){
+            int down  =  triangle.get(i+1).get(j);
+            int downSide = triangle.get(i+1).get(j+1);
+
+            int minTotal = triangle.get(i).get(j) + Math.min(down,downSide);
+
+            triangle.get(i).set(j,minTotal);
+        }
+       }
+      return triangle.get(0).get(0);  
+
+        
     }
 
     int getTotal(List<List<Integer>> triangle , int i , int j,List<List<Integer>> dp){
