@@ -18,7 +18,8 @@ class Solution {
 
         Queue<TreeNode> queue = new LinkedList<>();
 
-        List<Integer> levelSum = new ArrayList<>();
+        int[] levelSum = new int[1000001] ;
+        int level = 0;
 
         queue.add(root);
         while (queue.size() > 0) {
@@ -37,11 +38,12 @@ class Solution {
                     queue.add(current.right);
                 }
             }
-            levelSum.add(sum);
+            levelSum[level++] = sum;
+            
         }
 
         queue.add(root);
-        int level = 0;
+         level = 0;
         while(queue.size() > 0){
             int sz = queue.size();
             
@@ -53,13 +55,13 @@ class Solution {
                                   (currentNode.right != null ? currentNode.right.val : 0); 
 
                 if(currentNode.left != null){
-                   int cousinSum = levelSum.get(level) - siblingSum ;
+                   int cousinSum = levelSum[level] - siblingSum ;
                    currentNode.left.val = cousinSum; 
                    queue.add(currentNode.left);
                 }  
 
                 if(currentNode.right != null){
-                    int cousinSum = levelSum.get(level) - siblingSum ;
+                    int cousinSum = levelSum[level] - siblingSum ;
                    currentNode.right.val = cousinSum;  
                    queue.add(currentNode.right);
                 }  
