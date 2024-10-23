@@ -10,8 +10,33 @@ class Solution {
       for( int[] ar : dp)
       Arrays.fill(ar , -1);
 
-        int coin = getCoins(coins, n - 1, amount , dp);
-        return coin >= Math.pow(10, 9) ? -1 : coin;
+         //int coin = getCoins(coins, n - 1, amount , dp);
+        // return coin >= Math.pow(10, 9) ? -1 : coin;
+     
+     for( int j =0 ;j<=amount ;j++){
+        if( j % coins[0] == 0){
+            dp[0][j] = j / coins[0];
+        }
+        else{
+            dp[0][j] =(int) Math.pow(10,9);
+        }
+     }
+       
+       for( int i = 1; i < n ;i++){
+        for(int j = 0 ;j <=amount ;j++){
+
+            int notPick = dp[i-1][j] ;
+            int pick = (int)Math.pow(10,9);
+            if(coins[i] <= j){
+              pick = dp[i][ j - coins[i]] + 1;
+            }
+           dp[i][j] = Math.min(pick , notPick); 
+        }
+       }
+      
+      if(dp[n-1][amount] >= (int)Math.pow(10,9)) return -1;
+
+      return dp[n-1][amount];
 
     }
 
