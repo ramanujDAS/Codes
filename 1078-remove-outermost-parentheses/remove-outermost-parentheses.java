@@ -3,12 +3,12 @@ class Solution {
 
         Stack<Character> charStack = new Stack<>();
 
-        String ansString = "";
+        StringBuilder ansString = new StringBuilder("");
 
         for (char ch : s.toCharArray()) {
             if (ch == '(') {
                 if (charStack.size() > 0) {
-                    ansString += "(";
+                    ansString.append("(");
                 }
 
                 charStack.push('(');
@@ -18,11 +18,11 @@ class Solution {
                 charStack.pop();
 
                 if (charStack.size() > 0)
-                    ansString += ")";
+                    ansString.append(")");
 
             }
 
         }
-        return ansString;
+        return ansString.toString();
     }
 }
