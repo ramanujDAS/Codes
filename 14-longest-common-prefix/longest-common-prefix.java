@@ -1,7 +1,7 @@
 class Solution {
     public String longestCommonPrefix(String[] strs) {
         
-     String longestCommonPrefix  = "";
+     StringBuilder longestCommonPrefix  = new StringBuilder();;
      int minLength  = 210 ;
      for( int i = 0 ;i < strs.length ;i++){
         minLength = Math.min(minLength , strs[i].length());
@@ -20,11 +20,11 @@ class Solution {
         if(notMatched)
         break;
         
-        longestCommonPrefix += ch ;
+        longestCommonPrefix.append( ch) ;
 
          
         }
 
-     return longestCommonPrefix;
+     return longestCommonPrefix.toString();
     }
 }
