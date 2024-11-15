@@ -3,20 +3,20 @@ class Solution {
 
         s = s.trim();
         int n = s.length();
-        String ansStr = "";
+        StringBuilder reverseStr = new StringBuilder();
         String temp = "";
         for (int i = n - 1; i >= 0; i--) {
             if (!temp.equals("") && (s.charAt(i) == (' '))) {
-                ansStr += temp;
+                reverseStr.append(temp);
                 temp = "";
-                 ansStr += " ";
+                reverseStr.append(" ");
             } else if (s.charAt(i) == (' '))
-                ansStr += "";
+                reverseStr.append("");
             else {
                 temp = s.charAt(i) + temp;
             }
         }
-        ansStr += temp;
-        return ansStr;
+        reverseStr.append(temp);
+        return reverseStr.toString();
     }
 }
