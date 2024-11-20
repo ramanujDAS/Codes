@@ -20,10 +20,10 @@ class Solution {
       for( int right = 0;right < n ; right++){
         window[s.charAt(right) - 'a']++;
 
-          while( left <= right &&
+          while( left <= right &&(
                  count[0] - window[0] < k ||
                  count[1] - window[1] < k ||
-                 count[2] - window[2] < k){
+                 count[2] - window[2] < k)){
                   
                   window[s.charAt(left) - 'a']--;
                   left++;
