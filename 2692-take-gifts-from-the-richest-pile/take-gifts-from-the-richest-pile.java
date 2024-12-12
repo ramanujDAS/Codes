@@ -1,23 +1,23 @@
 class Solution {
     public long pickGifts(int[] gifts, int k) {
         
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-
-        for( int val : gifts){
-            pq.add(val);
-        }
-
+      ArrayList<Integer> list = new ArrayList<>();
+         for( int gift : gifts){
+            list.add(-gift);
+         }
+           
+          PriorityQueue<Integer> pq = new PriorityQueue<>(list);
+        
         while( k-- > 0){
-            int maxElement = pq.poll();
-            System.out.println(maxElement);
+            int maxElement = -pq.poll();
             int sqRoot = (int)Math.sqrt(maxElement) ;
-            pq.add(sqRoot);
+            pq.add(-sqRoot);
         }
 
         long remainingGifts = 0;
 
         while(pq.size() > 0){
-            remainingGifts += pq.poll();
+            remainingGifts -= pq.poll();
         }
 
         return remainingGifts;
