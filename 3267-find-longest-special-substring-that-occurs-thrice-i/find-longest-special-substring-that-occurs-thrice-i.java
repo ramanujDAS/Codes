@@ -3,28 +3,25 @@ class Solution {
 
         int maxLength = -1;
         // for (int len = s.length() - 1; len > 0; len--) {
-        //     if (findLength(s, len))
-        //         maxLength = Math.max(maxLength, len);
+        // if (findLength(s, len))
+        // maxLength = Math.max(maxLength, len);
         // }
 
+        // binary Search
 
-        // binary Search 
+        int low = 0;
+        int high = s.length() - 1;
 
+        while (low <= high) {
+            int mid = (low + high) / 2;
 
-        int low  = 0;
-        int high = s.length() -1 ;
-
-        while(low <= high){
-            int mid  = (low + high)/2;
-
-            if(findLength(s, mid)){
-                low = mid +1;
-            }
-            else{
-                high = mid -1;
+            if (findLength(s, mid)) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
-        return high > 0 ? high : -1;
+        return low - 1 > 0 ? low - 1 : -1;
     }
 
     private boolean findLength(String s, int windowSize) {
