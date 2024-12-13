@@ -2,11 +2,29 @@ class Solution {
     public int maximumLength(String s) {
 
         int maxLength = -1;
-        for (int len = s.length() - 1; len > 0; len--) {
-            if (findLength(s, len))
-                maxLength = Math.max(maxLength, len);
+        // for (int len = s.length() - 1; len > 0; len--) {
+        //     if (findLength(s, len))
+        //         maxLength = Math.max(maxLength, len);
+        // }
+
+
+        // binary Search 
+
+
+        int low  = 0;
+        int high = s.length() -1 ;
+
+        while(low <= high){
+            int mid  = (low + high)/2;
+
+            if(findLength(s, mid)){
+                low = mid +1;
+            }
+            else{
+                high = mid -1;
+            }
         }
-        return maxLength;
+        return high > 0 ? high : -1;
     }
 
     private boolean findLength(String s, int windowSize) {
