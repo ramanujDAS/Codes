@@ -17,16 +17,13 @@ class Solution {
 
        while( k-- > 0){
         int smallest [] = pq.poll();
-        pq.add(new int[]{smallest[0] * multiplier , smallest[1]});
+        int index = smallest[1];
+        nums[index] *= multiplier;
+        pq.add(new int[] { nums[index] , index});
        }  
 
        
-       while(pq.size() > 0){
-        int [] element = pq.poll();
-
-        nums[element[1]] = element[0];
-       }
-
+    
        return nums;
 
 
