@@ -7,19 +7,14 @@ class Solution {
 
 
         int [] charArray  = new int[26];
-
-        for(char ch : s.toCharArray()){
-            charArray[ch - 'a']++;
-        }
-
         int oddCount = 0;
-
-        for(int i = 0; i< 26 ; i++)
-        {
-            if(charArray[i] % 2 == 1)oddCount++;
+        for(char ch : s.toCharArray()){
+           int charIndexBit = 1 << (ch - 'a');
+           oddCount ^=charIndexBit;
         }
 
-        return oddCount <= k;
+
+        return Integer.bitCount(oddCount) <= k;
         
     }
 }
