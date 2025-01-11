@@ -5,8 +5,6 @@ class Solution {
 
         if(s.length() == k) return true;
 
-
-        int [] charArray  = new int[26];
         int oddCount = 0;
         for(char ch : s.toCharArray()){
            int charIndexBit = 1 << (ch - 'a');
