@@ -31,9 +31,9 @@ class Solution {
 
     private int totalHoursToEat(int rate , int[] piles){
          int requiredHours = 0;
-
+        //Use integer math to simulate ceiling: ceil(a / b) = (a + b - 1) / b
          for( int pile : piles){
-           requiredHours += Math.ceil((double)(pile) / (double)(rate));  
+           requiredHours += ((pile) +(rate) -1 )/rate;  
             }
          return requiredHours;     
          }
