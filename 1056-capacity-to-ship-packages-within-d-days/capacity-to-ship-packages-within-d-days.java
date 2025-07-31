@@ -1,6 +1,6 @@
 class Solution {
     static {
-        for (int i = 0; i < 100; i++) shipWithinDays(new int[0], 1);
+        for (int i = 0; i < 500; i++) shipWithinDays(new int[0], 1);
     }
     public static int shipWithinDays(int[] weights, int d) {
         int low = 1;
