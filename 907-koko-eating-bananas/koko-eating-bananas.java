@@ -1,49 +1,44 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-       
-       int low = 0;
-       int high = findMax(piles) ;
-        
-       int ans = Integer.MAX_VALUE;
-       while(low <= high){
 
-        int mid = low + ( high - low)/2 ;
-        int totalHours = getHours(piles , mid);
+        int low = 1;
+        int high = findMax(piles);
+        int minRate = Integer.MAX_VALUE;
+        while (low <= high) {
+            int mid =  low + (high - low)/2; 
+            int hour = totalHoursToEat(mid, piles);
 
-        if(totalHours <=h){
-            ans = Math.min(ans , mid);
-            high = mid -1;
-        }else{
-            low = mid + 1;
+            if (hour <= h) {
+                minRate = Math.min(minRate, mid);
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
         }
+        return minRate;
+    }
 
-       }
-     return ans;
+    private int findMax(int[] piles) {
+        int maxValue = Integer.MIN_VALUE;
+
+        for (int ch : piles) {
+            if (maxValue < ch) {
+                maxValue = ch;
+            }
+        }
+        return maxValue;
 
     }
 
-    int findMax(int []piles){
-        int n = piles.length ;
+    private int totalHoursToEat(int rate , int[] piles){
+         int requiredHours = 0;
 
-        int maxElement = Integer.MIN_VALUE;
-
-        for( int i =0 ;i< n ;i++)
-        {
-            maxElement = Math.max(maxElement , piles[i]);
-        }
-        return maxElement;
-    }
-
-    int getHours(int [] piles , int bananaPerHour){
-        int hours = 0;
-
-        for( int i =0 ;i<piles.length ;i++){
-            hours += Math.ceil((double)piles[i]/(double)bananaPerHour);
-        }
-        return hours;
-    }
+         for( int pile : piles){
+           requiredHours += Math.ceil((double)(pile) / (double)(rate));  
+            }
+         return requiredHours;     
+         }
 
 
-    
- 
+
 }
