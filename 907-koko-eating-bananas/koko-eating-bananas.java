@@ -6,7 +6,10 @@ class Solution {
         int minRate = Integer.MAX_VALUE;
         while (low <= high) {
             int mid =  low + (high - low)/2; 
-            int hour = totalHoursToEat(mid, piles);
+             int hour = 0;
+             for( int pile : piles){
+                hour += Math.ceil((double)(pile) / (double)(mid));  
+            }
 
             if (hour <= h) {
                 minRate = Math.min(minRate, mid);
@@ -30,14 +33,7 @@ class Solution {
 
     }
 
-    private int totalHoursToEat(int rate , int[] piles){
-         int requiredHours = 0;
-
-         for( int pile : piles){
-           requiredHours += Math.ceil((double)(pile) / (double)(rate));  
-            }
-         return requiredHours;     
-         }
+   
 
 
 
