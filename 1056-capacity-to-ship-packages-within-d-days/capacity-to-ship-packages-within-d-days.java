@@ -1,4 +1,5 @@
 class Solution {
+   
     public int shipWithinDays(int[] weights, int d) {
         int low = 1;
 
@@ -25,7 +26,7 @@ class Solution {
         return shipMin;
     }
 
-    int noOfDays(int[] weights, int capacity) {
+   private static int noOfDays(int[] weights, int capacity) {
 
         int noOfDays = 0;
         int totalWeight = 0;
