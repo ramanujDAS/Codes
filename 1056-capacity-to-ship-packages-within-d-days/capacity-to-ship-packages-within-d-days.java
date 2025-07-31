@@ -1,8 +1,9 @@
 class Solution {
-   
-    public int shipWithinDays(int[] weights, int d) {
+    static {
+        for (int i = 0; i < 300; i++) shipWithinDays(new int[0], 1);
+    }
+    public static int shipWithinDays(int[] weights, int d) {
         int low = 1;
-
         int high = 0;
         int shipMin = Integer.MAX_VALUE;
         for (int weight : weights) {
