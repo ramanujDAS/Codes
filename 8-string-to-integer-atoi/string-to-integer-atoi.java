@@ -1,27 +1,41 @@
 class Solution {
-    public int myAtoi(String x) {
+    public int myAtoi(String s) {
 
-       String s = x.trim();
+        s = s.trim();
+        if (s.length() == 0)
+            return 0;
 
+        long ans = 0;
+
+        int sign = 1;
         int i = 0;
-        boolean isNegative = false;
-        if (i < s.length() && (s.charAt(i) == '-' || s.charAt(i) == '+')) {
-            isNegative = s.charAt(i) == '-' ? true : false;
+        if (s.charAt(0) == '-' || s.charAt(0) == '+') {
+            if (s.charAt(0) == '-')
+                sign = -1;
+
             i++;
         }
 
-        double convertedInt = 0;
-        while (i < s.length() && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
-            convertedInt = convertedInt * 10 + (int) (s.charAt(i) - '0');
+        while (i < s.length()) {
+            char ch = s.charAt(i);
+
+            if (Character.isDigit(ch)) {
+                int val = ch - '0';
+                ans = ans * 10 + val;
+            } else {
+                break;
+            }
+
+            if(ans*sign > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if(ans*sign < Integer.MIN_VALUE) return Integer.MIN_VALUE;
             i++;
         }
 
-        if (isNegative)
-            convertedInt = -1 * convertedInt;
+        if (ans * sign > Integer.MAX_VALUE)
+            return Integer.MAX_VALUE;
+        if (ans * sign < Integer.MIN_VALUE)
+            return Integer.MIN_VALUE;
 
-        convertedInt = convertedInt > Integer.MAX_VALUE ? Integer.MAX_VALUE : convertedInt;
-        convertedInt = convertedInt < Integer.MIN_VALUE ? Integer.MIN_VALUE : convertedInt;
-
-        return (int)convertedInt;
+        return (int) ans * sign;
     }
 }
