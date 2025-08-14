@@ -1,40 +1,43 @@
 class Solution {
     public String removeKdigits(String num, int k) {
-      
-      int len = num.length();
-       
-       if(k == len) return "0";
 
-       Stack<Character> stack = new Stack<>();
+        if (k == num.length())
+            return "0";
 
-      
-       for( int i =0 ;i< len ;i++){
-            while( k > 0 && !stack.isEmpty() && stack.peek() > num.charAt(i)){
-              stack.pop();
-              k--;
+        Stack<Character> stack = new Stack<>();
+
+        int deleted = 0;
+
+        for (int i = 0; i < num.length(); i++) {
+
+            char value = num.charAt(i);
+            while (deleted < k && (!stack.isEmpty() && stack.peek() > value)) {
+                stack.pop();
+                deleted++;
             }
 
-            stack.push(num.charAt(i));
-       }
+            stack.push(value);
 
+        }
 
-      while( k > 0 && !stack.isEmpty()){
-        stack.pop();
-        k--;
-      }
-     String numAfterRemoval = "";
+        while(deleted < k){
+            stack.pop();
+            deleted++;
+        }
 
-     while(!stack.isEmpty()){
-        numAfterRemoval = stack.pop() + numAfterRemoval;
-     }
+        StringBuilder digits = new StringBuilder();
 
-     while(numAfterRemoval.length() > 1 && numAfterRemoval.charAt(0) == '0'){
-        numAfterRemoval = numAfterRemoval.substring(1);
-     }
+        while (!stack.isEmpty()) {
+            digits.append(stack.pop());
+        }
 
-     return numAfterRemoval;
+        digits.reverse();
+      
+        while(digits.length() > 1 && digits.charAt(0) =='0'){
+            digits.deleteCharAt(0);
+        }
 
-
+        return digits.toString() ;
 
     }
 }
