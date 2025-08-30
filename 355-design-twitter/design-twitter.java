@@ -25,33 +25,44 @@ class Twitter {
     }
 
     public List<Integer> getNewsFeed(int userId) {
+        Queue<Tweet> pq = new PriorityQueue<>((a, b) -> a.time - b.time);
+
         List<Integer> followers = followerByUserId.getOrDefault(userId, new ArrayList<>());
         //add userIDAs well 
 
-        List<Tweet> totalTweets = new ArrayList<>(tweetsByUserId.getOrDefault(userId, new ArrayList<>()));
-
-        for (int user : followers) {
-            totalTweets.addAll(tweetsByUserId.getOrDefault(user, new ArrayList<>()));
+      for (Tweet t : tweetsByUserId.getOrDefault(userId, new ArrayList<>())) {
+            pq.add(t);
+            if (pq.size() > 10) {
+                pq.remove();
+            }
         }
 
-        Collections.sort(totalTweets, (a, b) -> (b.time - a.time));
 
-        List<Tweet> newsFeed = totalTweets.subList(0, Math.min(
-                topK, totalTweets.size()));
+        for (int user : followers) {
+
+            for (Tweet t : tweetsByUserId.getOrDefault(user, new ArrayList<>())) {
+                pq.add(t);
+                if (pq.size() > 10)
+                    pq.remove();
+            }
+        }
+         
 
         List<Integer> ans = new ArrayList<>();
 
-        for (Tweet tw : newsFeed) {
-            ans.add(tw.id);
-        }
+       while(pq.size() > 0){
+          ans.add(pq.remove().id);
+       }
+
+       Collections.reverse(ans);
         return ans;
 
     }
 
     public void follow(int followerId, int followeeId) {
         List<Integer> followers = followerByUserId.getOrDefault(followerId, new ArrayList<>());
-        if(!followers.contains(Integer.valueOf(followeeId)))
-             followers.add(followeeId);
+        if (!followers.contains(Integer.valueOf(followeeId)))
+            followers.add(followeeId);
 
         followerByUserId.put(followerId, followers);
 
