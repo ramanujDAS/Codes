@@ -1,7 +1,7 @@
 class Twitter {
 
-    Map<Integer, List<Tweet>> tweetsByUserId;
-    Map<Integer, List<Integer>> followerByUserId;
+    Map<Integer, HashSet<Tweet>> tweetsByUserId;
+    Map<Integer, HashSet<Integer>> followerByUserId;
     int topK = 10;
     int time = 0;
 
@@ -13,9 +13,9 @@ class Twitter {
 
     public void postTweet(int userId, int tweetId) {
 
-        List<Tweet> tweets = tweetsByUserId.getOrDefault(
+        HashSet<Tweet> tweets = tweetsByUserId.getOrDefault(
                 userId,
-                new ArrayList<>());
+                new HashSet<>());
 
         Tweet tweet = new Tweet(tweetId, time);
         time++;
@@ -27,10 +27,10 @@ class Twitter {
     public List<Integer> getNewsFeed(int userId) {
         Queue<Tweet> pq = new PriorityQueue<>((a, b) -> a.time - b.time);
 
-        List<Integer> followers = followerByUserId.getOrDefault(userId, new ArrayList<>());
+        HashSet<Integer> followers = followerByUserId.getOrDefault(userId, new HashSet<>());
         //add userIDAs well 
 
-      for (Tweet t : tweetsByUserId.getOrDefault(userId, new ArrayList<>())) {
+      for (Tweet t : tweetsByUserId.getOrDefault(userId, new HashSet<>())) {
             pq.add(t);
             if (pq.size() > 10) {
                 pq.remove();
@@ -40,7 +40,7 @@ class Twitter {
 
         for (int user : followers) {
 
-            for (Tweet t : tweetsByUserId.getOrDefault(user, new ArrayList<>())) {
+            for (Tweet t : tweetsByUserId.getOrDefault(user, new HashSet<>())) {
                 pq.add(t);
                 if (pq.size() > 10)
                     pq.remove();
@@ -60,16 +60,14 @@ class Twitter {
     }
 
     public void follow(int followerId, int followeeId) {
-        List<Integer> followers = followerByUserId.getOrDefault(followerId, new ArrayList<>());
-        if (!followers.contains(Integer.valueOf(followeeId)))
-            followers.add(followeeId);
-
+        HashSet<Integer> followers = followerByUserId.getOrDefault(followerId, new HashSet<>());
+        followers.add(followeeId);
         followerByUserId.put(followerId, followers);
 
     }
 
     public void unfollow(int followerId, int followeeId) {
-        List<Integer> followers = followerByUserId.getOrDefault(followerId, new ArrayList<>());
+        HashSet<Integer> followers = followerByUserId.getOrDefault(followerId, new HashSet<>());
 
         if (followers.size() == 0)
             return;
