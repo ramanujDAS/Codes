@@ -15,17 +15,27 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
+        if(root == null) 
+           return true;
 
-      if(root == null) return true ;  
-      return fun(root.left , root.right) ;  
+        return isMirror(root.left , root.right);   
+
     }
 
-    boolean fun(TreeNode left , TreeNode right){
-      {
-        if(left == null && right == null) return true ;
-        if(left == null || right ==null) return false;
+    private boolean isMirror(TreeNode leftRoot , TreeNode rightRoot ){
+        
+       if(rightRoot == null && leftRoot == null)
+          return true;
+       if(rightRoot == null || leftRoot == null)
+          return false;
 
-        return ((left.val == right.val) && fun(left.right,right.left) && fun(left.left,right.right));
-      }  
+       if(rightRoot.val != leftRoot.val)
+          return false;       
+       
+       boolean isLeftMirror = isMirror(leftRoot.left ,rightRoot.right);
+       boolean isRightMirror = isMirror(leftRoot.right , rightRoot.left);
+
+       return isLeftMirror && isRightMirror;
+
     }
 }
