@@ -10,8 +10,8 @@ class Solution {
         }
 
         for (int[] edge : edges) {
-            int u = edge[0];
-            int v = edge[1];
+            int v = edge[0];
+            int u = edge[1];
             adj.get(u).add(v);
         }
 
