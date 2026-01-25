@@ -24,8 +24,8 @@ class Solution {
             int node = current[1];  // Current node
             int cost = current[2];
 
-            // if(stops > k)
-            //   continue;
+            if(stops > k)
+              continue;
 
            for(int [] adjNode : adj.get(node)){
               int nextNode = adjNode[0];
