@@ -1,37 +1,41 @@
 class Solution {
- 
     public boolean canPartition(int[] nums) {
-     
-      int sum = 0;
-      for(int num : nums){
-        sum +=num;
-      }
-     int n = nums.length;
-      if(sum % 2 != 0) return false;
-      int target = sum / 2 ;
-     
-      int dp[][] = new int[n][target + 1];
-            for (int row[] : dp)
-                Arrays.fill(row, -1);
 
-     return getResult(nums, n -1 , target , dp);
-       
-   } 
-  
-     boolean getResult(int[] nums , int index , int target , int[][] dp){
-        if(target == 0) return true;
-        if(index < 0 || target < 0) return false;
-    
-        if(index == 0) return nums[index] == target ;
+        int totalSum = 0;
+        for (int num : nums) {
+            totalSum += num;
+        }
 
-        if(dp[index][target] != -1) return dp[index][target] == 1 ? true : false; ;
+        if (totalSum % 2 == 1)
+            return false;
 
-        boolean pick = getResult(nums , index - 1, target - nums[index] , dp);
+        int target = totalSum / 2;
 
-        boolean notPick = getResult(nums , index - 1, target , dp);
-    
-        dp[index][target] = pick || notPick ? 1  : 0;
-        return pick||notPick;
-     }
+        int index = nums.length;
 
+        boolean[][] dp = new boolean[index + 1][target + 1];
+
+        dp[0][0] = true;
+
+        for (int i = 1; i <= index; i++) {
+            for (int j = 0; j <= target; j++) {
+
+                if (j == 0) {
+                    dp[i][j] = true;
+                    continue;
+                }
+
+                boolean notIncluded = dp[i - 1][j];
+
+                boolean included = false;
+                if (j - nums[i - 1] >= 0)
+                    included = dp[i - 1][j - nums[i - 1]];
+
+                dp[i][j] = included || notIncluded;
+            }
+
+           
+        }
+         return dp[index][target];
+    }
 }
