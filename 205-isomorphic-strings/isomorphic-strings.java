@@ -1,23 +1,25 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-      return helper(s,t) ; 
-    }
-    
-   private boolean helper(String s,String t){
-     HashSet<Character> set= new HashSet<>();  
-      HashMap<Character,Character> map= new HashMap<>();
-        for(int i=0;i<s.length();i++){
-           if(map.containsKey(s.charAt(i))){
-              if(map.get(s.charAt(i))!=t.charAt(i))
-                  return false;
-              
-           } 
-           else {
-                if(set.contains(t.charAt(i)))return false;
-                map.put(s.charAt(i),t.charAt(i));
-                set.add(t.charAt(i));
-                }
+
+        HashMap<Character, Character> map = new HashMap<>();
+        HashSet<Character> set = new HashSet<>();
+
+        if (s.length() != t.length())
+            return false;
+        for (int i = 0; i < s.length(); i++) {
+            char currChar = s.charAt(i);
+            char currChar1 = t.charAt(i);
+            if (map.containsKey(currChar)) {
+                if (map.get(currChar) != currChar1)
+                    return false;
+            } else {
+                if(set.contains(currChar1))
+                     return false;
+                map.put(currChar, currChar1);
+                set.add(currChar1);
+            }
         }
-      return true;   
-   } 
+
+        return true;
+    }
 }
