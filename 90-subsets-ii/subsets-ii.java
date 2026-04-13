@@ -1,23 +1,25 @@
 class Solution {
-
-    List<List<Integer>> list = new ArrayList<>();
+    List<List<Integer>> ans = new ArrayList<>();
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
-        fun(nums, 0, new ArrayList<>());
-        return list;
+        sum(nums, 0, 0, new ArrayList<Integer>(), 0);
+        return ans;
     }
 
-    void fun(int[] nums, int index, List<Integer> t) {
-        list.add(new ArrayList<>(t));
+    public void sum(int[] sum, int index, int target, ArrayList<Integer> curr, int currSum) {
 
-        for (int i = index; i < nums.length; i++) {
-            if (i != index && i > 0 && nums[i] == nums[i - 1])
+        if (index > sum.length)
+            return;
+
+        ans.add(curr);
+
+        for (int i = index; i < sum.length; i++) {
+            if (i > index && sum[i] == sum[i - 1])
                 continue;
-
-            t.add(nums[i]);
-            fun(nums, i + 1, t);
-            t.remove(t.size() - 1);
+            ArrayList<Integer> t = new ArrayList<>(curr);
+            t.add(sum[i]);
+            sum(sum, i + 1, target, t, currSum + sum[i]);
         }
 
     }
