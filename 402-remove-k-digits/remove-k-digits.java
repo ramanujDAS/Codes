@@ -19,8 +19,8 @@ class Solution {
             stack.push(value);
 
         }
-
-        while(deleted < k){
+       /// the case when array is increasing order
+        while (deleted < k) {
             stack.pop();
             deleted++;
         }
@@ -32,12 +32,12 @@ class Solution {
         }
 
         digits.reverse();
-      
-        while(digits.length() > 1 && digits.charAt(0) =='0'){
+
+        while (digits.length() > 1 && digits.charAt(0) == '0') {
             digits.deleteCharAt(0);
         }
 
-        return digits.toString() ;
+        return digits.toString();
 
     }
 }
