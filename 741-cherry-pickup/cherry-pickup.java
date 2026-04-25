@@ -1,11 +1,11 @@
 class Solution {
     int max = 0;
 
-    Integer[][][][] memo;
+    Integer[][][] memo;
 
     public int cherryPickup(int[][] grid) {
         int n = grid.length;
-        memo = new Integer[n][n][n][n];
+        memo = new Integer[n][n][n];
         return Math.max(0, cherryPickup(grid, 0, 0, 0, 0));
 
     }
@@ -23,8 +23,8 @@ class Solution {
             return grid[r1][c1];
         }
 
-        if (memo[r1][c1][r2][c2] != null) {
-            return memo[r1][c1][r2][c2];
+        if (memo[r1][c1][r2] != null) {
+            return memo[r1][c1][r2];
         }
 
         int cherry = 0;
@@ -41,8 +41,8 @@ class Solution {
         int downRight = cherryPickup(grid, r1 + 1, c1, r2, c2 + 1); // one down and second right direction
 
         cherry += Math.max(Math.max(bothRight, bothDown), Math.max(rightDown, downRight));
-        memo[r1][c1][r2][c2] = cherry;
-        return memo[r1][c1][r2][c2] ;
+        memo[r1][c1][r2] = cherry;
+        return memo[r1][c1][r2] ;
 
 
     }
