@@ -16,7 +16,7 @@ class Solution {
       
            funSum =  funSum + sum - (n*nums[n-k]);
 
-           result = Math.max(funSum , result);
+           result = result > funSum ? result : funSum;
 
         }
         return (int)result;
